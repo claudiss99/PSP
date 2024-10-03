@@ -37,8 +37,7 @@ public class InvertirCadenas5 {
         // Procesar cada cadena y mostrarla invertida
         System.out.println("\nCadenas invertidas:");
         for (String c : cadenas) {
-            //¿Como llama a la función del otro ejercicio?
-            System.out.println(invertirCadena(c));
+            
         }
 
         // Cerrar el escáner
