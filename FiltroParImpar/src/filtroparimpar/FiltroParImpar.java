@@ -19,11 +19,10 @@ public class FiltroParImpar {
      */
     public static void main(String[] args) {
         // TODO code application logic 
-        System.out.println("Introduce -p para obtener par o -i para obtener impar: ");
-        String filtro;
         Scanner teclado = new Scanner(System.in);
-        filtro = teclado.nextLine();
-        
+        System.out.println("Introduce -p para obtener par o -i para obtener impar: ");
+        String filtro = teclado.nextLine();
+        //Problema te pide un numero y despues te comprueba el filtro. Esta feo!
         List<Integer> numbers = new ArrayList<>();
         System.out.println("Introduce numeros o 0 para terminar");
         int number = teclado.nextInt();
@@ -31,20 +30,28 @@ public class FiltroParImpar {
         while (number!=0){
             switch (filtro){
             case "-p":
-                addNumber(number);
+                if (number %2 ==0){
+                    numbers.add(number);
+                }
                 break;
             case "-i":
-                addNumber(number);
+                if (number %2 !=0){
+                    numbers.add(number);
+                }
                 break;
             case "":
+                System.err.println("Filtro no válido, campo vacío");
                 System.exit(1);
                 break;
             default:
+                System.err.println("Filtro no válido, cualquier otro valor");
                 System.exit(2);   
             }
-        System.out.println("Introduce numeros, cuando introduzcas 0, no se introducirá más");
-        int number = teclado.nextInt();
+            System.out.println("Introduce numeros, cuando introduzcas 0, no se introducirá más");
+            number = teclado.nextInt();
         }
+        
+        System.out.println("Números filtrados: " +numbers);
         
     }
 }

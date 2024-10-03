@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class ClasificaTexto {
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Error: Debes proporcionar el nombre del archivo como argumento.");
+            System.exit(1);
+        }
+
+        String archivo = args[0]; // El archivo es el único argumento
+
+        try {
+            // Abrir el archivo
+            File file = new File(archivo);
+            Scanner scanner = new Scanner(file);
+            int totalPalabras = 0;
+            int palabrasLargas = 0;
+            int palabrasCortas = 0;
+
+            // Leer el archivo palabra por palabra
+            while (scanner.hasNext()) {
+                String palabra = scanner.next();
+                totalPalabras++; // Incrementa el contador total de palabras
+
+                if (palabra.length() >= 8) {
+                    palabrasLargas++; // Si la palabra es larga
+                } else if (palabra.length() <= 4) {
+                    palabrasCortas++; // Si la palabra es corta
+                }
+            }
+
+            scanner.close();
+
+            // Mostrar los resultados
+            System.out.println("Número de palabras: " + totalPalabras);
+            System.out.println("Palabras largas: " + palabrasLargas);
+            System.out.println("Palabras cortas: " + palabrasCortas);
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: El archivo no existe.");
+            System.exit(1);
+        }
+    }
+}
+
+Ejecución:
+java ClasificaTexto texto_1.txt

@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class ContarPalabras {
+
+    public static void main(String[] args) {
+        if (args.length < 1) {
+            System.err.println("Error: Se debe proporcionar el nombre del archivo.");
+            System.exit(1);
+        }
+
+        String archivo = args[args.length - 1]; // El archivo siempre es el último argumento
+        int longitud = 0; // Usado para el filtro de longitud
+        String opcion = ""; // -g o -l si se especifican
+
+        // Revisar si hay opción (-g o -l) y longitud
+        if (args.length > 2) {
+            opcion = args[0]; // Primero parámetro será -g o -l
+            try {
+                longitud = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.err.println("Error: El parámetro X debe ser un número entero.");
+                System.exit(1);
+            }
+        }
+
+        try {
+            // Abrir el archivo
+            File file = new File(archivo);
+            Scanner scanner = new Scanner(file);
+            int contador = 0;
+
+            // Leer el archivo palabra por palabra
+            while (scanner.hasNext()) {
+                String palabra = scanner.next();
+
+                // Si no hay opción (-g o -l), contar todas las palabras
+                if (opcion.isEmpty()) {
+                    contador++;
+                } 
+                // Si la opción es -g, contar palabras con longitud mayor a X
+                else if (opcion.equals("-g") && palabra.length() > longitud) {
+                    contador++;
+                } 
+                // Si la opción es -l, contar palabras con longitud menor a X
+                else if (opcion.equals("-l") && palabra.length() < longitud) {
+                    contador++;
+                }
+            }
+
+            scanner.close();
+            // Imprimir el resultado
+            System.out.println(contador);
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: El archivo no existe.");
+            System.exit(1);
+        }
+    }
+}
+
+En powerShell:
+
+Para contar todas las palabras:
+java ContarPalabras texto_1.txt
+
+Para contar palabras con longitud menor a 2:
+java ContarPalabras -l 2 texto_3.txt
+
+Para contar palabras con longitud mayor a 10:
+java ContarPalabras -g 10 texto_3.txt
