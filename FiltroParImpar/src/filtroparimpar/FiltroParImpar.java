@@ -18,11 +18,11 @@ public class FiltroParImpar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic 
+        // *La p y la i hay que hacerlo con args*
         Scanner teclado = new Scanner(System.in);
         System.out.println("Introduce -p para obtener par o -i para obtener impar: ");
         String filtro = teclado.nextLine();
-        //Problema te pide un numero y despues te comprueba el filtro. Esta feo!
+        //Problema te pide un numero y despues te comprueba el filtro. Esta feo! //if antes del switch
         List<Integer> numbers = new ArrayList<>();
         System.out.println("Introduce numeros o 0 para terminar");
         int number = teclado.nextInt();
@@ -51,7 +51,7 @@ public class FiltroParImpar {
             number = teclado.nextInt();
         }
         
-        System.out.println("Números filtrados: " +numbers);
+        System.out.println(numbers);
         
     }
 }

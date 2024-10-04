@@ -26,6 +26,7 @@ public class ClasificarNumeros {
         // TODO code application logic here
         Scanner teclado = new Scanner(System.in);
         List<Integer> numbers = new ArrayList<>();
+        //Quitar los SOUT
         System.out.println("Introduce numeros o 0 para terminar");
         int number = teclado.nextInt();
         
@@ -48,6 +49,7 @@ public class ClasificarNumeros {
             // Enviar todos los números a los procesos
             
             //Lo he tenido que escribir como String sino da ERROR
+            //Podemos poner String.valueOf(num) y también se haría un string
             writerPares.write(Integer.toString(num)); 
             writerPares.newLine();
 
@@ -66,8 +68,8 @@ public class ClasificarNumeros {
         BufferedReader readerPares = new BufferedReader(new InputStreamReader(pares.getInputStream()));
         BufferedReader readerImpares = new BufferedReader(new InputStreamReader(impares.getInputStream()));
 
-        System.out.println("Números pares: " + readerPares);
-        System.out.println("Números impares: " + readerImpares);    
+        System.out.println("Números pares: " + readerPares.readLine());
+        System.out.println("Números impares: " + readerImpares.readLine());    
     }
     
 }
