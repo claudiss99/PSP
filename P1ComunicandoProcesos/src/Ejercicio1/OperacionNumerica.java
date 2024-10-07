@@ -18,31 +18,35 @@ public class OperacionNumerica {
      */
     public static void main(String[] args) {
         
+        //java OperacionNumerica.java /-s/-m
         Scanner sc = new Scanner(System.in);
         int number =sc.nextInt();
         ArrayList<Integer> numbers = new ArrayList<>();
-        int suma =0;
+        double suma =0;
+        int c = 0;
         
         while (number!=0){
             if (number>0){
-                switch (var) {
-                case "":
+                if(args.length == 0) {
                     numbers.add(number);
-                    break;
-                case "-s":
-                    suma +=suma;
-                    break;
-                case "-m":
-                    suma +=suma;
-                    break;
-                default:
+                }else if (args[0].equals("-s")){
+                    suma +=number;
+                }else if (args[0].equals("-m")){
+                    suma +=number;
+                    c ++;
+                }else{
                     throw new AssertionError();
+                }
             }
-            }
-            Scanner sc = new Scanner(System.in);
-            int numero =sc.nextInt();
+            number = sc.nextInt();
         }
-        
+        if(args.length == 0) {
+            System.out.println(numbers);
+        }else if (args[0].equals("-s")){
+            System.out.println(suma);
+        }else if (args[0].equals("-m")){
+            System.out.println(suma/c);
+        }
     }
     
 }
