@@ -40,6 +40,7 @@ public class SumaNumeros {
             System.out.println(readerSuma);
             
             readerSuma.close();
+            
         }
         
     }
