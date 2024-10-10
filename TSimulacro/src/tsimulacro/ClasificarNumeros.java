@@ -32,9 +32,9 @@ public class ClasificarNumeros {
             limite = Integer.parseInt(args[0]);
         }
         
-        
+        //porque limite 2 tiene que estar igualado a 0
         int limite1;
-        int limite2;
+        int limite2 = 0;
         
         //Se presupone que no hay error, o es uno o es 2
         if (limite == 1){
@@ -47,13 +47,13 @@ public class ClasificarNumeros {
             limite2 = sc.nextInt();
         }
         
-        ArrayList<Integer> listNumbers = new ArrayList<>();
+        
         System.out.println("introduzca numero, o fin para terminar");
         String  cadena = sc.nextLine();
+        String cadenaEspacios = "";
         
         while (cadena.toLowerCase() != "fin"){
-            int numero = Integer.parseInt(cadena);
-            listNumbers.add(numero);
+            cadenaEspacios.concat(cadena + " ");
             System.out.println("introduzca numero, o fin para terminar");
             cadena = sc.nextLine();
         }
@@ -62,28 +62,49 @@ public class ClasificarNumeros {
         String fileName = sc.nextLine();
         
         if (limite == 1){
-            procesoLimite1(limite1, listNumbers, fileName);
+            procesoLimite1(limite1, cadenaEspacios, fileName);
         }else{
-            procesoLimite2(limite1, limite2, listNumbers, fileName);
+            procesoLimite2(limite1, limite2, cadenaEspacios, fileName);
         }
     }
     
-    private static void procesoLimite1 (int limite1, ArrayList<Integer> listNumber, String fileName) throws IOException{
+    private static void procesoLimite1 (int limite1, String cadenaEspacios, String fileName) throws IOException{
         Runtime runtime = Runtime.getRuntime();
-        Process ordenaMayor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-g"});
-        Process ordenaMenor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-l"});
+        Process ordenaMayor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-g", String.valueOf(limite1)});
+        Process ordenaMenor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-l", String.valueOf(limite1)});
         BufferedWriter writerMayor = new BufferedWriter(new OutputStreamWriter(ordenaMayor.getOutputStream()));
         BufferedWriter writerMenor = new BufferedWriter(new OutputStreamWriter(ordenaMenor.getOutputStream()));
         
-        for (int num: listNumber){
-            
-            writerMayor.write(String.valueOf(num)); 
-            writerMayor.newLine();
-            writerMenor.write(String.valueOf(num)); 
-            writerMenor.newLine();
-        }
+        writerMayor.write(cadenaEspacios);
+        writerMenor.write(cadenaEspacios);
         
         writerMayor.write(fileName);
+        writerMenor.write(fileName);
+        
+        writerMayor.flush();
+        writerMayor.close();
+        
+        writerMenor.flush();
+        writerMenor.close();
+    }
+    
+        private static void procesoLimite2 (int limite1, int limite2, String cadenaEspacios, String fileName) throws IOException{
+        Runtime runtime = Runtime.getRuntime();
+        Process ordenaMayor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-g", String.valueOf(limite1)});
+        Process ordenaMenor = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-l", String.valueOf(limite2)});
+        Process ordenaMedio = runtime.exec(new String[]{"java", "0rdenaNumeros.java", "-b", String.valueOf(limite1), String.valueOf(limite2)});
+        
+        BufferedWriter writerMayor = new BufferedWriter(new OutputStreamWriter(ordenaMayor.getOutputStream()));
+        BufferedWriter writerMenor = new BufferedWriter(new OutputStreamWriter(ordenaMenor.getOutputStream()));
+        BufferedWriter writerMedio = new BufferedWriter(new OutputStreamWriter(ordenaMedio.getOutputStream()));
+        
+        writerMayor.write(cadenaEspacios);
+        writerMenor.write(cadenaEspacios);
+        writerMedio.write(cadenaEspacios);
+        
+        writerMayor.write(fileName);
+        writerMenor.write(fileName);
+        writerMedio.write(fileName);
         
         writerMayor.flush();
         writerMayor.close();
@@ -91,7 +112,7 @@ public class ClasificarNumeros {
         writerMenor.flush();
         writerMenor.close();
         
-        BufferedReader readerMayor= new BufferedReader(new InputStreamReader(ordenaMayor.getInputStream()));
-
+        writerMedio.flush();
+        writerMedio.close();
     }
 }
