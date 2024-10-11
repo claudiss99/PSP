@@ -7,10 +7,7 @@ package ejerciciosrepaso;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,10 +20,11 @@ public class GeneraTablas {
             System.exit(1);
         }
         
-        String fileName = args[0];
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("Numero sobre el que generar la tabla");
         int num = sc.nextInt();
+        String fileName = args[0];
         Thread.sleep(3000);
 
             
