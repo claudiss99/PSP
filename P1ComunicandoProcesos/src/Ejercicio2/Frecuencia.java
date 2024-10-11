@@ -4,6 +4,7 @@
  */
 package Ejercicio2;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -17,8 +18,8 @@ public class Frecuencia {
         //java Frecuencia resultado.
         //Comprobamos que se ha introducido el nombre del fichero
         if (args.length<1){
-            //****Debería de ser system.err????
-            System.out.println("Debe proporcionar el nombre del fichero como argumento");
+            System.err.println("Debe proporcionar el nombre del fichero como argumento");
+            System.exit(1);
         }
         
         String fileName = args[0];
@@ -26,8 +27,6 @@ public class Frecuencia {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduce una cadena: ");
         String cadena = sc.nextLine().toLowerCase();
-        
-        //****Es importante cerrar el scanner????? sc.close;
         
         //Incializamos contador para cada vocal
         int contA = 0;
@@ -60,8 +59,9 @@ public class Frecuencia {
             }
         }
         
-        try (FileWriter writer = new FileWriter(fileName)){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
             writer.write(cadena+": "+contA+" "+contE+" "+contI+" "+contO+" "+contU);
+            writer.newLine();
         }catch (IOException e){
             System.err.println("Ocurrio un error al escribir el archivo");
         }

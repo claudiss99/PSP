@@ -17,7 +17,7 @@ public class GeneraTablas {
     public static void main(String[] args) throws InterruptedException {
         if (args.length == 0){
             System.err.println("No se ha encontrado parametro");
-            System.exit(1);
+            System.exit(1q
         }
         
         
@@ -37,7 +37,7 @@ public class GeneraTablas {
     private static void tMultiplicar(int num, String fileName){
         
         
-        try (BufferedWriter wfile = new BufferedWriter(new FileWriter(fileName))){
+        try (BufferedWriter wfile = new BufferedWriter(new FileWriter(fileName,true))){
            for (int i=1 ; i<11; i++){
             wfile.write(num+" "+"x"+" "+i+" "+"="+" "+(num*i));
             wfile.newLine();

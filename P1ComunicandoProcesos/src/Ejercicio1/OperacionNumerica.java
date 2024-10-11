@@ -20,25 +20,25 @@ public class OperacionNumerica {
         
         //java OperacionNumerica.java /-s/-m
         Scanner sc = new Scanner(System.in);
-        int number =sc.nextInt();
+        String number =sc.nextLine();
         ArrayList<Integer> numbers = new ArrayList<>();
-        double suma =0;
+        int suma =0;
         int c = 0;
         
-        while (number!=0){
-            if (number>0){
+        while (Integer.parseInt(number)!= 0){
+            if (Integer.parseInt(number)>0){
                 if(args.length == 0) {
-                    numbers.add(number);
+                    numbers.add(Integer.valueOf(number));
                 }else if (args[0].equals("-s")){
-                    suma +=number;
+                    suma +=Integer.valueOf(number);
                 }else if (args[0].equals("-m")){
-                    suma +=number;
+                    suma +=Integer.valueOf(number);
                     c ++;
                 }else{
                     throw new AssertionError();
                 }
             }
-            number = sc.nextInt();
+            number = sc.nextLine();
         }
         if(args.length == 0) {
             System.out.println(numbers);

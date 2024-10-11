@@ -42,14 +42,15 @@ public class Numeros {
         
         // Ejecutar los procesos hijos
             Runtime runtime = Runtime.getRuntime();
-            Process positiveNumbers = runtime.exec(new String[]{"java", "OperacionNumerica.java", " "});
+            Process positiveNumbers = runtime.exec(new String[]{"java", "OperacionNumerica.java"});
             Process suma = runtime.exec(new String[]{"java", "OperacionNumerica.java", "-s"});
-            Process media = runtime.exec(new String[]{"java", "OperacionNumerica..java", "-m"});
+            Process media = runtime.exec(new String[]{"java", "OperacionNumerica.java", "-m"});
             // Crear los writers para enviar las numeros a los procesos hijos
             BufferedWriter writerPosNum= new BufferedWriter(new OutputStreamWriter(positiveNumbers.getOutputStream()));
             BufferedWriter writerSuma= new BufferedWriter(new OutputStreamWriter(suma.getOutputStream()));
             BufferedWriter writerMedia= new BufferedWriter(new OutputStreamWriter(media.getOutputStream()));
 
+            
             for (int num: listNumbers){
                 // Enviar todos los números a los procesos
                 writerPosNum.write(String.valueOf(num)); 
@@ -60,9 +61,13 @@ public class Numeros {
                 writerMedia.newLine();
 
             }
-            writerPosNum.write(0);
-            writerSuma.write(0);
-            writerMedia.write(0);
+       
+            writerPosNum.write("0");
+            writerPosNum.newLine();
+            writerSuma.write("0");
+            writerSuma.newLine();
+            writerMedia.write("0");
+            writerMedia.newLine();
             // Cerrar los flujos de escritura después de enviar todos los números
             writerPosNum.flush();
             writerPosNum.close();
@@ -83,5 +88,7 @@ public class Numeros {
             System.out.println("Números: " + readerPosNum.readLine());
             System.out.println("Suma: " + readerSuma.readLine());
             System.out.println("Media: " + readerMedia.readLine());
+            //Para ver los errores
+            //BufferedReader readerPosNumE = new BufferedReader(new InputStreamReader(media.getErrorStream()));
     }
 }

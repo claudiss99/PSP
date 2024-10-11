@@ -5,6 +5,7 @@
 package Ejercicio2;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,25 +32,22 @@ public class Cadenas {
             
             // Ejecutar los procesos hijos
             Runtime runtime = Runtime.getRuntime();
-            Process contarVocal = runtime.exec(new String[]{"java", "Frecuencia.java"});
+            Process contarVocal = runtime.exec(new String[]{"java", "Frecuencia.java", fileName});
 
             // Crear los writers para enviar las cadenas a los procesos hijos
             BufferedWriter writerCadena= new BufferedWriter(new OutputStreamWriter(contarVocal.getOutputStream()));
 
             for (String cad : ListCadenas){
-                // Enviar todos los números a los procesos
+                // Enviar todos los cadenas a los procesos
                 writerCadena.write(cad); 
                 writerCadena.newLine();
 
             }
-
             // Cerrar los flujos de escritura después de enviar todos los números
             writerCadena.flush();
             writerCadena.close();
 
-            //No se pone el reader porque se guarda en el fichero?????????
-            int exitCode = contarVocal.waitFor();
-        }catch (Exception e){
+        }catch (IOException e){
             System.err.println("Ha habido algun error ejecutando el proceso hijo");
         }finally{
             sc.close();
