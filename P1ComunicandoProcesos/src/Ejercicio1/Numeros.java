@@ -60,7 +60,9 @@ public class Numeros {
                 writerMedia.newLine();
 
             }
-
+            writerPosNum.write(0);
+            writerSuma.write(0);
+            writerMedia.write(0);
             // Cerrar los flujos de escritura después de enviar todos los números
             writerPosNum.flush();
             writerPosNum.close();
