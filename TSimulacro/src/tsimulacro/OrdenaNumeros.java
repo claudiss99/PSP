@@ -118,11 +118,12 @@ public class OrdenaNumeros {
         System.out.println(mensaje + " : " + result);
 
         // Guardar en el fichero
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write(mensaje + " : " + result + "\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(mensaje + " : " + result);
+            writer.newLine();
             System.out.println("Datos guardados en el fichero: " + fileName);
         } catch (IOException e) {
-            System.out.println("Ocurrió un error al guardar en el fichero: " + e.getMessage());
+            System.err.println("Ocurrió un error al guardar en el fichero: " + e.getMessage());
         }
     }
 }

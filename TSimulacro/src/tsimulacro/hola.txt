@@ -1,1 +1,0 @@
-Números mayores de 5 : [6, 8, 9]

@@ -25,19 +25,19 @@ public class SumaNumeros {
             cadena += String.valueOf(num) + " ";
             num=sc.nextInt();
         }
-        
         Runtime runtime = Runtime.getRuntime();
         
-        Process suma = runtime.exec(new String[]{"java", "0rdenaNumeros.java"});
+        Process suma = runtime.exec(new String[]{"java", "SumaNumerosLinea.java"});
         //Me aconseja meterlo en un try pero sin catch???
         try (BufferedWriter writerSuma = new BufferedWriter(new OutputStreamWriter(suma.getOutputStream()))) {
             writerSuma.write(cadena);
-            
+            writerSuma.newLine();
             writerSuma.flush();
             
             BufferedReader readerSuma = new BufferedReader(new InputStreamReader(suma.getInputStream()));
-
-            System.out.println(readerSuma);
+            //Se pone tantos readLine hasta que llegues al sout que quieras
+            readerSuma.readLine();
+            System.out.println(readerSuma.readLine());
             
             readerSuma.close();
             
