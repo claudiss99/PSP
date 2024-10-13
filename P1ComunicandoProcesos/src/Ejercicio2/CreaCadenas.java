@@ -4,9 +4,9 @@
  */
 package Ejercicio2;
 
-import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -14,9 +14,15 @@ import java.io.OutputStreamWriter;
  */
 public class CreaCadenas {
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) {
-            System.out.println("Error: Debes proporcionar un número como parámetro.");
+        try{
+            if (args.length == 0) {
+                throw new IllegalArgumentException();
+            }
+            Integer.parseInt(args[0]);
+        }catch(IllegalArgumentException e){
+            System.err.println("Error: Debes proporcionar un número como parámetro.");
         }
+        
 
         try {
             // Intentar convertir el argumento en un número entero
@@ -27,14 +33,15 @@ public class CreaCadenas {
                 // Ejecutar los procesos hijos
             Runtime runtime = Runtime.getRuntime();
             Process cadena = runtime.exec(new String[]{"java", "GenerarCadena.java"});
-            BufferedWriter writerCadena = new BufferedWriter(new OutputStreamWriter(cadena.getOutputStream()));
-            writerPares.write(c); 
-            writerPares.newLine();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(cadena.getInputStream()));
+            System.out.println(reader.readLine());
+            
             }
 
         } catch (NumberFormatException e) {
             // Si el argumento no es un número válido, mostrar mensaje de error
-            System.out.println("Error: El parámetro debe ser un número válido.");
+            System.err.println("Error: El parámetro debe ser un número válido.");
+            System.exit(1);
         }
     }
 }

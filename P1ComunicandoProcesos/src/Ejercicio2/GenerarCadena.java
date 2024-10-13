@@ -18,14 +18,17 @@ public class GenerarCadena {
         int longitud = random.nextInt(20) + 1; // nextInt(20) genera un número entre 0 y 19, así que sumamos 1
         
         // Generar la cadena aleatoria
-        StringBuilder cadenaAleatoria = new StringBuilder();
+        String cadenaAleatoria = "";
+ 
         for (int i = 0; i < longitud; i++) {
             int indice = random.nextInt(caracteresValidos.length());
-            cadenaAleatoria.append(caracteresValidos.charAt(indice));
+            char caracter = caracteresValidos.charAt(indice);
+            cadenaAleatoria +=caracter;
+
         }
         
         // Mostrar la cadena generada
-        System.out.println("Cadena generada: " + cadenaAleatoria.toString());
+        System.out.println(cadenaAleatoria);
     }
 }
 
