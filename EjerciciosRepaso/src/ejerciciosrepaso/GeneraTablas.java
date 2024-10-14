@@ -7,6 +7,7 @@ package ejerciciosrepaso;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -17,15 +18,17 @@ public class GeneraTablas {
     public static void main(String[] args) throws InterruptedException {
         if (args.length == 0){
             System.err.println("No se ha encontrado parametro");
-            System.exit(1q
+            System.exit(1);
         }
         
+        Random random = new Random();
         
         Scanner sc = new Scanner(System.in);
         System.out.println("Numero sobre el que generar la tabla");
         int num = sc.nextInt();
         String fileName = args[0];
-        Thread.sleep(3000);
+        
+        Thread.sleep(random.nextInt(8000+2000));
 
             
         //Añadimos el final de linea
@@ -42,6 +45,8 @@ public class GeneraTablas {
             wfile.write(num+" "+"x"+" "+i+" "+"="+" "+(num*i));
             wfile.newLine();
            }
+           wfile.flush();
+           wfile.close();
             System.out.println("Datos guardados correctamente en el fichero: "+fileName);
         } catch (IOException e) {
             System.err.println("Ocurrio un error al guardar en el fichero: "+ e.getMessage());

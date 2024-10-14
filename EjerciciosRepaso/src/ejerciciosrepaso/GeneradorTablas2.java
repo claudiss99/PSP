@@ -35,10 +35,11 @@ public class GeneradorTablas2 {
         Runtime runtime = Runtime.getRuntime();
         String filename = file+"_"+num+".txt";
         Process tmultiplicar = runtime.exec(new String[]{"java", "GeneraTablas.java", filename});
-        BufferedWriter writerMult = new BufferedWriter(new OutputStreamWriter(tmultiplicar.getOutputStream()));
-        writerMult.write(num);
-        writerMult.newLine();
-        writerMult.flush();
+        try (BufferedWriter writerMult = new BufferedWriter(new OutputStreamWriter(tmultiplicar.getOutputStream()))) {
+            writerMult.write(num);
+            writerMult.newLine();
+            writerMult.flush();
+        }
         
     }
 }
