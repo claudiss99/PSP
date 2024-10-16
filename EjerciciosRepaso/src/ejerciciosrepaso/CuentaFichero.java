@@ -4,6 +4,11 @@
  */
 package ejerciciosrepaso;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -11,29 +16,17 @@ import java.util.Scanner;
  * @author ClaudissPerez
  */
 public class CuentaFichero {
-    public static void main(String[] args) {
-        String parametro= "-w";
-        String file = "100palabras.txt";
-        switch (parametro) {
-            case "-w":
-                ConteoPalabras(file);
-                break;
-            case "-l":
-                ConteoLineas(file);
-                break;
-            default:
-                throw new AssertionError();
-        }
-        
-        /*if("-w".equals(args[0]) || "-l".equals(args[0])){
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        if("-w".equals(args[0]) || "-l".equals(args[0])){
             String parametro=args[0];
             String file = args[1];
+            File fileName = new File(file);
             switch (parametro) {
                 case "-w":
-                    ConteoPalabras(file);
+                    ConteoPalabras(fileName);
                     break;
                 case "-l":
-                    ConteoLineas(file);
+                    ConteoLineas(fileName);
                     break;
                 default:
                     throw new AssertionError();
@@ -41,17 +34,16 @@ public class CuentaFichero {
         }else {
             System.err.println("No se ha introducido el parametro correcto");
             System.exit(1);
-        }*/
+        }
         
     }
     
-    public static void ConteoLineas(String file){
+    public static void ConteoLineas(File file) throws FileNotFoundException, IOException{
         String linea = "";
         int contLinea = 0;
         try{
-            Scanner sc = new Scanner(file);
-            while(sc.hasNextLine()){
-                linea +=sc.nextLine();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            while((linea = reader.readLine())!=null){
                 contLinea ++;
             }
         }catch (IllegalArgumentException e){
@@ -60,17 +52,18 @@ public class CuentaFichero {
         System.out.println("Hay "+contLinea+" lineas en el fichero");
     }
     
-    public static void ConteoPalabras(String file){
+    public static void ConteoPalabras(File file) throws FileNotFoundException, IOException{
         String linea = "";
+        int contWord= 0;
         try{
-            Scanner sc = new Scanner(file);
-            while(sc.hasNextLine()){
-                linea +=sc.nextLine();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            while((linea = reader.readLine())!=null){
+                contWord += linea.split(" ").length;
             }
         }catch (IllegalArgumentException e){
             System.err.println("Error al leer el archivo");
         }
-        String[] palabras = linea.split(" ");
-        System.out.println("Hay "+palabras.length+" palabras en el fichero");
+        
+        System.out.println("Hay "+contWord+" palabras en el fichero");
     }
 }
