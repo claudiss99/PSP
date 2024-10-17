@@ -27,45 +27,59 @@ public class CompararFicheros {
                 while (nFicheros<0){
                    nFicheros = sc.nextInt();
                 }
-            filesName = pedirNomF(nFicheros);
-        }else if(args[0].equals("-n")) {
-            nFicheros = Integer.parseInt(args[1]);
-            filesName = pedirNomF(nFicheros);
-        }else if(args[0].equals("-f")){
-            for(int i=1; i<args.length;i++){
-                filesName.add(args[i]);
+                filesName = pedirNomF(nFicheros);
+            }else if(args[0].equals("-n")) {
+                nFicheros = Integer.parseInt(args[1]);
+                filesName = pedirNomF(nFicheros);
+            }else if(args[0].equals("-f")){
+                for(int i=1; i<args.length;i++){
+                    filesName.add(args[i]);
+                }
+                // numero de ficheros
+                nFicheros = args.length-2;
             }
-            // numero de ficheros
-            nFicheros = args.length-2;
-        }
-        //Lanzar 2 procesos por cada file(Uno para las lineas y otro para las palabras)
-        int contPalabras = 0;
-        String filePalabras = "";
-        int contLineas = 0;
-        String fileLineas = "";
-        for (String f: filesName){
-            int contP = procesos(f, "-w");
-            if(contP>contPalabras){
-                filePalabras = f;
+            //Lanzar 2 procesos por cada file(Uno para las lineas y otro para las palabras)
+            int contPalabras = 0;
+            String filePalabras = "";
+            int contLineas = 0;
+            String fileLineas = "";
+            ArrayList<Process> procPal = new  ArrayList<>();
+            ArrayList<Process> procLin = new  ArrayList<>();
+            for (String f: filesName){
+                procPal.add(procesos(f, "-w"));
+                
+                procLin.add(procesos(f, "-l"));
+                /*Tendría que recorrer los arrays para quedarme con el que tenga mayor 
+                palabras o lineas, como quiero guardar el fichero me quedo con f, cambiar 
+                por un for normal/
+                /*
+                if(contP>contPalabras){
+                    filePalabras = f;
+                    contPalabras=contP;
+                }
+                if(contL>contLineas){
+                    fileLineas = f;
+                    contLineas=contL;
+                } 
+                */
             }
-            int contL = procesos(f, "-l");
-            if(contL>contLineas){
-                fileLineas = f;
-            }    
-        }
-        System.out.println("Fichero con más palabras: "+filePalabras);
-        System.out.println("Fichero con más líneas: "+fileLineas);
+            System.out.println("Fichero con más palabras: "+filePalabras);
+            System.out.println("Fichero con más líneas: "+fileLineas);
         }catch (IllegalArgumentException e){
-            System.err.println("Ha ocurrido un error con los argumentos introducidos " +e.getMessage());
+            System.err.println("Ha ocurrido un error con los argumentos introducidos");
         }
     }
     
-    public static Integer procesos (String fileName, String parametro) throws IOException{
+    public static Process procesos (String fileName, String parametro) throws IOException{
         Runtime runtime = Runtime.getRuntime();
         Process palabras = runtime.exec(new String[]{"java", "CuentaFichero.java", parametro, fileName});
+        return palabras;
+        /*
         BufferedReader rPalabras = new BufferedReader(new InputStreamReader(palabras.getInputStream()));
         int contPalabras = Integer.valueOf(rPalabras.readLine());
+        System.out.println(contPalabras);
         return contPalabras;
+        */
     }
     
     public static ArrayList<String> pedirNomF (int nFicheros){

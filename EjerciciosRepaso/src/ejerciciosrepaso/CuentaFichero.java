@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,11 @@ import java.io.IOException;
  */
 public class CuentaFichero {
     public static void main(String[] args) throws FileNotFoundException, IOException {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CuentaFichero.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if("-w".equals(args[0]) || "-l".equals(args[0])){
             String parametro=args[0];
             String file = args[1];
@@ -48,7 +55,7 @@ public class CuentaFichero {
         }catch (IllegalArgumentException e){
             System.err.println("Error al leer el archivo");
         }
-        System.out.println("Hay "+contLinea+" lineas en el fichero");
+        System.out.println(contLinea);
     }
     
     public static void ConteoPalabras(File file) throws FileNotFoundException, IOException{
@@ -63,6 +70,6 @@ public class CuentaFichero {
             System.err.println("Error al leer el archivo");
         }
         
-        System.out.println("Hay "+contWord+" palabras en el fichero");
+        System.out.println(contWord);
     }
 }
