@@ -28,24 +28,24 @@ public class Cadenas {
         System.out.println("Introduce el nombre del fichero en el que desea guardar: ");
         String fileName = sc.nextLine();
         
-        try{
-            
-            // Ejecutar los procesos hijos
-            Runtime runtime = Runtime.getRuntime();
-            Process contarVocal = runtime.exec(new String[]{"java", "Frecuencia.java", fileName});
-
-            // Crear los writers para enviar las cadenas a los procesos hijos
-            BufferedWriter writerCadena= new BufferedWriter(new OutputStreamWriter(contarVocal.getOutputStream()));
+        try{          
 
             for (String cad : ListCadenas){
+                // Ejecutar los procesos hijos
+                Runtime runtime = Runtime.getRuntime();
+                Process contarVocal = runtime.exec(new String[]{"java", "Frecuencia.java", fileName});
+
+                // Crear los writers para enviar las cadenas a los procesos hijos
+                BufferedWriter writerCadena= new BufferedWriter(new OutputStreamWriter(contarVocal.getOutputStream()));
                 // Enviar todos los cadenas a los procesos
                 writerCadena.write(cad); 
                 writerCadena.newLine();
+                
+                // Cerrar los flujos de escritura después de enviar todos los números
+                writerCadena.flush();
+                writerCadena.close();
 
             }
-            // Cerrar los flujos de escritura después de enviar todos los números
-            writerCadena.flush();
-            writerCadena.close();
 
         }catch (IOException e){
             System.err.println("Ha habido algun error ejecutando el proceso hijo");
