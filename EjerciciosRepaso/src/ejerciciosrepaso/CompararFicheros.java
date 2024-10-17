@@ -20,7 +20,6 @@ public class CompararFicheros {
             Scanner sc = new Scanner(System.in);
             int nFicheros;
             ArrayList<String> filesName = new ArrayList<>();
-            String files;
             if(args.length == 0){
                 //Pedir numero de ficheros
                 nFicheros = sc.nextInt();
@@ -39,29 +38,41 @@ public class CompararFicheros {
                 nFicheros = args.length-2;
             }
             //Lanzar 2 procesos por cada file(Uno para las lineas y otro para las palabras)
-            int contPalabras = 0;
+            int mayorNumeroPalabras = 0;
             String filePalabras = "";
             int contLineas = 0;
             String fileLineas = "";
             ArrayList<Process> procPal = new  ArrayList<>();
             ArrayList<Process> procLin = new  ArrayList<>();
-            for (String f: filesName){
-                procPal.add(procesos(f, "-w"));
+            for (int i=0; i<procPal.size(); i++){
+                procPal.add(procesos(filesName.get(i), "-w"));
                 
-                procLin.add(procesos(f, "-l"));
-                /*Tendría que recorrer los arrays para quedarme con el que tenga mayor 
-                palabras o lineas, como quiero guardar el fichero me quedo con f, cambiar 
-                por un for normal/
-                /*
-                if(contP>contPalabras){
-                    filePalabras = f;
-                    contPalabras=contP;
+                procLin.add(procesos(filesName.get(i), "-l"));
+                
+                BufferedReader br = new BufferedReader(new InputStreamReader(procPal.get(i).getInputStream()));
+
+                int numerosPalabras;
+                String numero = br.readLine();
+                //Esto me da 31 sin problemas
+    //            System.out.println(numero);
+                numerosPalabras = Integer.parseInt(numero);
+                //Guardo el fichero que tenga el mayor numero de palabras.
+                if (numerosPalabras > mayorNumeroPalabras) {
+                    filePalabras = filesName.get(i);
+                    mayorNumeroPalabras = numerosPalabras;
                 }
-                if(contL>contLineas){
-                    fileLineas = f;
-                    contLineas=contL;
-                } 
-                */
+                
+                br = new BufferedReader(new InputStreamReader(procLin.get(i).getInputStream()));
+                //Guardo el numero de lineas de este fichero
+                int numeroLineas;
+                numero = br.readLine();
+    //            System.out.println(numero);
+                numeroLineas = Integer.parseInt(numero);
+                //Guardo el fichero que tenga el mayor numero de lineas.
+                if (numeroLineas > contLineas) {
+                    fileLineas = filesName.get(i);
+                    contLineas = numeroLineas;
+                }
             }
             System.out.println("Fichero con más palabras: "+filePalabras);
             System.out.println("Fichero con más líneas: "+fileLineas);
