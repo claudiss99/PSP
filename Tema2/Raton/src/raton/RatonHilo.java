@@ -16,29 +16,10 @@ public class RatonHilo extends Thread{
     private int tiempo;
 
     public RatonHilo(String nombre, int tiempo) {
+        //Para que se inicialice el hilo
+        super();
         this.nombre = nombre;
         this.tiempo = tiempo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getTiempo() {
-        return tiempo;
-    }
-
-    public void setTiempo(int tiempo) {
-        this.tiempo = tiempo;
-    }
-
-    @Override
-    public String toString() {
-        return "Raton{" + "nombre=" + nombre + ", tiempo=" + tiempo + '}';
     }
     
     public void comer() throws InterruptedException{

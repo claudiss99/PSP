@@ -30,5 +30,7 @@ public class main {
         new Thread(pinkyR).start();
         new Thread(mickeyR).start();
         
+        
+        
     }
 }

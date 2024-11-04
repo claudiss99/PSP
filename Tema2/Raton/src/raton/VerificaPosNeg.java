@@ -14,6 +14,7 @@ public class VerificaPosNeg extends Thread{
     private int number;
 
     public VerificaPosNeg(int number) {
+        super();
         this.number = number;
     }
     

@@ -15,6 +15,7 @@ public class VerificaParidad extends Thread{
     private int number;
 
     public VerificaParidad(int number) {
+        super();
         this.number = number;
     }
     

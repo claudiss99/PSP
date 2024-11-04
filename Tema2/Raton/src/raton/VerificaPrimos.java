@@ -14,6 +14,7 @@ public class VerificaPrimos extends Thread{
     private int number;
 
     public VerificaPrimos(int number) {
+        super();
         this.number = number;
     }
     
