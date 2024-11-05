@@ -28,7 +28,7 @@ public class VerificaPrimos extends Thread{
                 break;
             }
         }
-        if (primo){
+        if (primo && number!=0 && number!=1 && number!=-1){
             System.out.println("El numero "+number+" es primo");
         }else{
             System.out.println("El numero "+number+" no es primo");
