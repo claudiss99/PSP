@@ -65,13 +65,18 @@ public class ClasificaNumeros1 extends Thread{
         String input =sc.nextLine();
         String[] num = input.split(" ");
         ClasificaNumeros1 clasf = null;
+        ArrayList<ClasificaNumeros1> hilos = new ArrayList<>();
         for (String n:num){
             int number = Integer.parseInt(n);
             clasf = new ClasificaNumeros1(number);
             clasf.start();
+            hilos.add(clasf);
             
         }
         
+        for (ClasificaNumeros1 c: hilos){
+            c.join();
+        }
         
         
         System.out.println("Números positivos: " + pos);
