@@ -36,18 +36,18 @@ public class RatonStates extends Thread {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ArrayList<State> estados = new ArrayList<>();
+        ArrayList<Thread.State> estados = new ArrayList<>();
         RatonStates fievel = new RatonStates("Fievel", 6000);
 
         // Agregamos el estado inicial antes de iniciar el hilo
-        State estadoActual = fievel.getState();
+        Thread.State estadoActual = fievel.getState();
         estados.add(estadoActual);
 
         // Iniciamos el hilo
         fievel.start();
 
         // Bucle para capturar los estados mientras el hilo no esté terminado
-        while (fievel.getState() != State.TERMINATED) {
+        while (estadoActual != State.TERMINATED) {
             estadoActual = fievel.getState();
             if (!estados.contains(estadoActual)) {
                 estados.add(estadoActual);

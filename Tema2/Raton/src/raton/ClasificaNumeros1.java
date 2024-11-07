@@ -69,9 +69,10 @@ public class ClasificaNumeros1 extends Thread{
             int number = Integer.parseInt(n);
             clasf = new ClasificaNumeros1(number);
             clasf.start();
+            
         }
         
-        clasf.join();
+        
         
         System.out.println("Números positivos: " + pos);
         System.out.println("Números negativos: " + neg);
