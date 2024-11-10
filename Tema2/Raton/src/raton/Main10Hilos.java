@@ -26,5 +26,6 @@ public class Main10Hilos {
         h2.interrupt();
         h3.interrupt();
         System.out.println("Tiempo agotado");
+
     }
 }
