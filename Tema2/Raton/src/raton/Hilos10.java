@@ -8,10 +8,10 @@ package raton;
  *
  * @author Claudia
  */
-public class Hilo1 extends Thread{
+public class Hilos10 extends Thread{
     int n = 1;
     int div;
-    public Hilo1(String nombre, int d) {
+    public Hilos10(String nombre, int d) {
         super(nombre);
         this.div = d;
     }
@@ -27,9 +27,10 @@ public class Hilo1 extends Thread{
         boolean interrumpir = false;
         
         while(!interrumpir){
+            //aqui se pondria el for de 90???
             try {
-                Thread.sleep(1000);
                 this.mostrar();
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 this.interrupt();
             }

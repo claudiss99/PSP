@@ -13,9 +13,10 @@ import java.util.logging.Logger;
  * @author Claudia
  */
 public class Alarma extends Thread{
-
-    public Alarma() {
+    private int tiempo;
+    public Alarma(int t) {
         super();
+        this.tiempo = t;
     }
     
     public void mostrar(){
