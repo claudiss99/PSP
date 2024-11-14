@@ -1,4 +1,4 @@
-package raton;
+package Ejercicio8;
 import java.util.ArrayList;
 import java.util.Scanner;
 
