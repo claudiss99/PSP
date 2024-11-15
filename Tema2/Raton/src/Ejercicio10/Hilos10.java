@@ -9,7 +9,7 @@ package Ejercicio10;
  * @author Claudia
  */
 public class Hilos10 extends Thread{
-    int n = 1;
+    int n = 0;
     int div;
     public Hilos10(String nombre, int d) {
         super(nombre);
@@ -17,8 +17,7 @@ public class Hilos10 extends Thread{
     }
     
     public void mostrar(){
-        System.out.println(this.getName()+": "+n);
-        n++;
+       
 
     }
     
@@ -27,18 +26,23 @@ public class Hilos10 extends Thread{
         boolean interrumpir = false;
         
         while(!interrumpir){
-            //aqui se pondria el for de 90???
-            try {
-                this.mostrar();
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                this.interrupt();
-            }
             if (isInterrupted()){
                 if (n%div == 0){
-                    interrumpir = true;
+                    interrumpir=true;
                 }
             }
+            if(!interrumpir){
+                n++;
+                try {
+                     System.out.println(this.getName()+": "+n);
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    this.interrupt();
+                }
+            }
+            
+           
         }
     }
 }

@@ -13,10 +13,8 @@ import java.util.logging.Logger;
  */
 public class Persona extends Thread{
     private Cuenta cuenta;
-    //No puede ponerse el nombre como super porque sino no puedo usarlo en retirar
-    private String nombre;
     public Persona(String nombre, Cuenta cuenta) {
-        this.nombre = nombre;
+        super(nombre);
         this.cuenta = cuenta;
     }
     
@@ -26,7 +24,7 @@ public class Persona extends Thread{
         int n=0;
         while (n<4){
             try {
-                cuenta.retirar(10, nombre);
+                cuenta.retirar(10, getName());
             } catch (InterruptedException ex) {
                 Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
             }

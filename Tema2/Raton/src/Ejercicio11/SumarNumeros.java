@@ -21,7 +21,7 @@ public class SumarNumeros {
         
         String[] num = input.split(" ");
         ArrayList<Integer> numeros = new ArrayList<>();
-            for (String n: num) {
+        for (String n: num) {
             numeros.add(Integer.valueOf(n));
         }
 
@@ -37,7 +37,6 @@ public class SumarNumeros {
 
         int sumaTotal = suma1.getSuma() + suma2.getSuma();
         
-        // Mostrar el resultado final
         System.out.println("La suma total es: " + sumaTotal);
     }
 }

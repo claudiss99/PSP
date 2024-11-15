@@ -19,6 +19,7 @@ public class Main10Hilos {
         h1.start();
         h2.start();
         h3.start();
+        // si quiero entre dos numeros en concreto nextInt(x,y)
         int aleat = new Random().nextInt(10000);
         System.out.println(aleat);
         Thread.sleep(aleat);

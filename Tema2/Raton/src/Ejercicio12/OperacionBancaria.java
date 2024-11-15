@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class OperacionBancaria {
     public static void main(String[] args) {
-        int aleat = new Random().nextInt(30+1)+30;
+        int aleat = new Random().nextInt(30,61);
         //Se ha introducido aquí el saldo, porque no sabía si estaba bien introducirlo en cuenta, y como asignarlo
         Cuenta c = new Cuenta(aleat);
         Persona p1 = new Persona("Claudia", c);
@@ -20,6 +20,7 @@ public class OperacionBancaria {
         
         p1.start();
         p2.start();
+        
         
         
     }
