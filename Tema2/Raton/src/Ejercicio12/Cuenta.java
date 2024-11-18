@@ -23,7 +23,7 @@ public class Cuenta {
         this.saldo = saldo;
     }
     
-    public void retirar(int cantidad, String nombre) throws InterruptedException{
+    public synchronized void retirar(int cantidad, String nombre) throws InterruptedException{
         if (cantidad <= saldo){
             System.out.println(nombre+" va a retirar "+cantidad+"€. Saldo actual: "+saldo+"€.");
             Thread.sleep(500);
