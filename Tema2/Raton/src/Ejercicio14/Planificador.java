@@ -11,25 +11,28 @@ import java.util.ArrayList;
  * @author ClaudissPerez
  */
 public class Planificador extends Thread{
-    private ListaTareas tareas;
+    private static ListaTareas listaTareas;
+    /*
+    Recorre el for y crea las tareas en el orden correspondiente, añadir tarea
+    coge una tarea no la devuelve, y el desarrollador recibe el numero de tareas 
+    entonces tiene un for hasta ese numero para leer
+    */
     private int nTareas;
 
-    public Planificador(ListaTareas tareas, int nTareas) {
-        this.tareas = tareas;
+    public Planificador(int nTareas) {
         this.nTareas = nTareas;
     }
     
     
     public void crearTarea(){
         for(int i=0; i<nTareas;i++){
-            String tarea = tareas.añadirTarea();
-            System.out.println("P: "+tarea+" añadida");
+            listaTareas.añadirTarea("Tarea "+String.valueOf(i));
+            
         }
     }
     
     @Override
     public void run(){
-        
         this.crearTarea();
     }
 }

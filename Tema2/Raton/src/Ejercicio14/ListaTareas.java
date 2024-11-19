@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author ClaudissPerez
  */
 public class ListaTareas {
-    private ArrayList<String> tareas = new ArrayList<>();
+    private static ArrayList<String> tareas = new ArrayList<>();
        /*
     ListaTareas recibe el numero de tareas? o recibe el arraylist que se 
     le pasa desde 
@@ -21,11 +21,10 @@ public class ListaTareas {
     public ArrayList getTareas(){
         return tareas;
     }
-    public synchronized String añadirTarea(){
-        String tarea = "Tarea "+ Integer.toString(tareas.size());
+    public synchronized void añadirTarea(String tarea){
         tareas.add(tarea);
+        System.out.println("P: "+tarea+" añadida");
         notify();
-        return tarea;
     }
     
     public synchronized String obtenerTarea() throws InterruptedException{

@@ -13,15 +13,16 @@ import java.util.logging.Logger;
  * @author ClaudissPerez
  */
 public class Desarrollador extends Thread{
-    private ListaTareas tareas;
+    private int nTareas;
+    private static ListaTareas listaTareas;
 
-    public Desarrollador(ListaTareas tareas) {
-        this.tareas = tareas;
+    public Desarrollador(int nTareas) {
+        this.nTareas = nTareas;
     }
     
     public void obtener() throws InterruptedException{
-        while (true){
-           String tarea = tareas.obtenerTarea();
+        for (int i =0; i<nTareas;i++){
+           String tarea = listaTareas.obtenerTarea();
            if (tarea !=null){
                System.out.println("D: "+tarea+ " recibida");
            }
