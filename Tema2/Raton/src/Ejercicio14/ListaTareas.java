@@ -12,27 +12,27 @@ import java.util.ArrayList;
  */
 public class ListaTareas {
     private static ArrayList<String> tareas = new ArrayList<>();
-       /*
-    ListaTareas recibe el numero de tareas? o recibe el arraylist que se 
-    le pasa desde 
-    el simulador
-    */
-    
-    public ArrayList getTareas(){
-        return tareas;
+
+    public ListaTareas() {
+        
     }
-    public synchronized void añadirTarea(String tarea){
+    
+    
+    public synchronized void anadirTarea(String tarea){
         tareas.add(tarea);
         System.out.println("P: "+tarea+" añadida");
-        notify();
+        //System.out.println(tareas.size());
+        this.notifyAll();
     }
     
     public synchronized String obtenerTarea() throws InterruptedException{
+        System.out.println(tareas.size());
         while(tareas.isEmpty()){
-            wait();
+            System.out.println("esperando");
+            this.wait();
         }
+
         String tarea = tareas.remove(0);
-        
         return tarea;
     }
     

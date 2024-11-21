@@ -21,9 +21,10 @@ public class SimuladorListaTareas {
         Desarrollador desarrollador = new Desarrollador(nTareas);
         
         planificador.start();
+//        planificador.join();
         desarrollador.start();
         
-        planificador.join();
+        
         desarrollador.join();
         
         System.out.println("Ya no quedan tareas por leer");
