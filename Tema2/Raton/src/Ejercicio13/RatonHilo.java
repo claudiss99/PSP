@@ -24,7 +24,7 @@ public class RatonHilo extends Thread{
         this.comedero = comedero;
     }
     
-    public void comer() throws InterruptedException{
+    public synchronized void comer() throws InterruptedException{
         System.out.println("El ratón "+nombre+" ha empezado a comer");
         Thread.sleep(tiempo);
         System.out.println("El ratón "+nombre+ " ha terminado de comer");

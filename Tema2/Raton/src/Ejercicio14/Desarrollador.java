@@ -13,19 +13,21 @@ import java.util.logging.Logger;
  * @author ClaudissPerez
  */
 public class Desarrollador extends Thread{
-    private ListaTareas tareas;
+    private int nTareas;
+    private ListaTareas listaTareas;
 
-    public Desarrollador(ListaTareas tareas) {
-        this.tareas = tareas;
+    public Desarrollador(int nTareas) {
+        this.nTareas = nTareas;
+        listaTareas = new ListaTareas();
     }
     
     public void obtener() throws InterruptedException{
-        while (true){
-           String tarea = tareas.obtenerTarea();
-           if (tarea !=null){
-               System.out.println("D: "+tarea+ " recibida");
-           }
-       }
+        for (int i =0; i<nTareas;i++){
+           String tarea = listaTareas.obtenerTarea();
+           System.out.println("D: "+tarea+" recibida");
+       
+        }
+        
     }
     @Override
     public void run(){
