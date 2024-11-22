@@ -19,7 +19,6 @@ public class RatonHilo extends Thread{
     
 
     public RatonHilo(String nombre, int tiempo, Comedero comedero, int unidadesComida) {
-        //Para que se inicialice el hilo
         super();
         this.nombre = nombre;
         this.tiempo = tiempo;
@@ -33,8 +32,9 @@ public class RatonHilo extends Thread{
         }
         System.out.println("El ratón "+nombre+" ha empezado a comer");
         Thread.sleep(tiempo*1000);
-        System.out.println("El ratón "+nombre+ " ha terminado de comer");
-        comedero.setComidaDisponible(comedero.getComidaDisponible()-1);
+        comedero.setComidaDisponible(comedero.getComidaDisponible()-unidadesComida);
+        System.out.println("El ratón "+nombre+ " ha terminado de comer. Comida disponible: "+comedero.getComidaDisponible());
+        
         
         
     }

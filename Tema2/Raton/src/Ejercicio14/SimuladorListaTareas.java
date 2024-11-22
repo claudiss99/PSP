@@ -17,8 +17,8 @@ public class SimuladorListaTareas {
         int nTareas= sc.nextInt();
         
         ListaTareas tareas = new ListaTareas();
-        Planificador planificador = new Planificador(nTareas);
-        Desarrollador desarrollador = new Desarrollador(nTareas);
+        Planificador planificador = new Planificador(nTareas, tareas);
+        Desarrollador desarrollador = new Desarrollador(nTareas, tareas);
         
         planificador.start();
 //        planificador.join();

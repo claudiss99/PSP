@@ -12,9 +12,9 @@ public class Planificador extends Thread{
     private  ListaTareas listaTareas;
     private int nTareas;
 
-    public Planificador(int nTareas) {
+    public Planificador(int nTareas, ListaTareas listaTareas) {
         this.nTareas = nTareas;
-        listaTareas = new ListaTareas();
+        this.listaTareas = listaTareas;
     }
     
     

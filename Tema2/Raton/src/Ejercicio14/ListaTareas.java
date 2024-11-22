@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author ClaudissPerez
  */
 public class ListaTareas {
-    private static ArrayList<String> tareas = new ArrayList<>();
+    private ArrayList<String> tareas = new ArrayList<>();
 
     public ListaTareas() {
         
@@ -21,14 +21,11 @@ public class ListaTareas {
     public synchronized void anadirTarea(String tarea){
         tareas.add(tarea);
         System.out.println("P: "+tarea+" añadida");
-        //System.out.println(tareas.size());
         this.notifyAll();
     }
     
     public synchronized String obtenerTarea() throws InterruptedException{
-        System.out.println(tareas.size());
         while(tareas.isEmpty()){
-            System.out.println("esperando");
             this.wait();
         }
 

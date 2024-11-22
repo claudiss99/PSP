@@ -24,7 +24,7 @@ public class Cuidador extends Thread{
         this.recargar();
     }
     
-    public void recargar(){
+    public synchronized void recargar(){
         while (true){
             if (comedero.getComidaDisponible() < 5){
                 notifyAll();

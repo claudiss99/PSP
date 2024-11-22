@@ -16,9 +16,9 @@ public class Desarrollador extends Thread{
     private int nTareas;
     private ListaTareas listaTareas;
 
-    public Desarrollador(int nTareas) {
+    public Desarrollador(int nTareas, ListaTareas listaTareas) {
         this.nTareas = nTareas;
-        listaTareas = new ListaTareas();
+        this.listaTareas = listaTareas;
     }
     
     public void obtener() throws InterruptedException{
