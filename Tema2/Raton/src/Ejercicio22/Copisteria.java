@@ -15,14 +15,14 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Copisteria {
     private static Lock puedeImprimir = new ReentrantLock();
-    private static Condition impresoraLibre = puedeImprimir.newCondition();
+   
     
     public static void main(String[] args) {
         Random random = new Random();
         int i = 0;
         
         while (i<10){
-            Ordenador computer = new Ordenador("Ordenador "+String.valueOf(i), puedeImprimir, impresoraLibre, random.nextInt(3,7));
+            Ordenador computer = new Ordenador("Ordenador "+String.valueOf(i), puedeImprimir, random.nextInt(3,7));
             computer.start();
             i++;
         }

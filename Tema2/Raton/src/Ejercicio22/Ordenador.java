@@ -15,13 +15,11 @@ import java.util.logging.Logger;
  */
 public class Ordenador extends Thread{
     private Lock puedeImprimir;
-    private Condition impresoraLibre;
     private int tiempo;
 
-    public Ordenador(String nombre, Lock puedeImprimir, Condition impresoraLibre, int tiempo) {
+    public Ordenador(String nombre, Lock puedeImprimir, int tiempo) {
         super(nombre);
         this.puedeImprimir = puedeImprimir;
-        this.impresoraLibre = impresoraLibre;
         this.tiempo = tiempo;
     }
     
@@ -32,7 +30,6 @@ public class Ordenador extends Thread{
             System.out.println(getName()+": ha comenzado a imprimir");
             Thread.sleep(tiempo*1000);
             System.out.println(getName()+": ha terminado de imprimir");
-            impresoraLibre.signalAll();  
             
         } finally {
             puedeImprimir.unlock();
