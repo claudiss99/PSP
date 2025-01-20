@@ -31,15 +31,15 @@ public class SocketEjercicio1 {
             //Stremas para comunicarse con el servidor
             PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-            
-            String mensajeMayus;
+            BufferedReader servidorRespuesta = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String mensajeMayus ;
             String mensaje;
             
             do{
                 System.out.println("Escribe un mensaje: ");
                 mensaje= teclado.readLine();
                 salida.println(mensaje);
-                mensajeMayus = teclado.readLine();
+                mensajeMayus = servidorRespuesta.readLine();
                 System.out.println(mensajeMayus);
                 
             }while (!mensaje.equalsIgnoreCase("salir"));

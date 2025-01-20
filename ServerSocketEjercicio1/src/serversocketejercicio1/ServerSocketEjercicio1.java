@@ -40,6 +40,7 @@ public class ServerSocketEjercicio1 {
                 mensaje= entrada.readLine();
                 System.out.println("Cliente: "+mensaje);
                 salida.println("Servidor: Recibido -> "+mensaje.toUpperCase());
+                salida.flush();
                 
             }while(!mensaje.equalsIgnoreCase("salir"));
             
