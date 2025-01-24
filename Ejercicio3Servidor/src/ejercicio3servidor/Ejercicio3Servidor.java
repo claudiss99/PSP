@@ -17,36 +17,68 @@ import java.net.Socket;
  */
 public class Ejercicio3Servidor {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        int puerto = 400;
-        
-        try(ServerSocket serverSocket = new ServerSocket(puerto)){
+        int puerto = 4000;
+
+        try (ServerSocket serverSocket = new ServerSocket(puerto)) {
             System.out.println("Servidor iniciado. Esperando cliente...");
             Socket socket = serverSocket.accept();
             System.out.println("Cliente conectado");
-            
-            BufferedReader reader = new  BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter escribir = new PrintWriter(socket.getOutputStream(), true);
-            
+
             String mensaje;
-            String operacion = null;
-            do{
-                escribir.print("Dime la operación a realizar");
-                //Leo respuesta
+
+            do {
+                //operación del cliente
                 mensaje = reader.readLine();
-                //Hago operacion
-                
-                //le doy respuesta
-                escribir.println("El resultado es: "+operacion);
-            }while (!mensaje.equalsIgnoreCase("salir"));
-            
-        }catch(IOException e){
-            System.out.println("Error en el servidor. "+e.getLocalizedMessage());
+                //Si no pongo este if entra en el catch
+                if (!mensaje.equalsIgnoreCase("salir")) {
+                    String[] operacion = mensaje.split(" ");
+                    if (operacion.length == 3) {
+                        try {
+                            int operando1 = Integer.parseInt(operacion[0]);
+                            String operador = operacion[1];
+                            int operando2 = Integer.parseInt(operacion[2]);
+                            double resultado = 0;
+
+                            switch (operador) {
+                                case "+":
+                                    resultado = operando1 + operando2;
+                                    break;
+                                case "-":
+                                    resultado = operando1 - operando2;
+                                    break;
+                                case "*":
+                                    resultado = operando1 * operando2;
+                                    break;
+                                case "/":
+                                    if (operando2 != 0) {
+                                        resultado = operando1 / operando2;
+                                    } else {
+                                        escribir.println("Error: División por cero");
+                                        continue;
+                                    }
+                                    break;
+                                default:
+                                    escribir.println("Error: Operador no válido");
+                                    
+                            }
+                            
+                            escribir.println("El resultado es: " + resultado);
+                        } catch (NumberFormatException e) {
+                            //Si no mete numeros
+                            escribir.println("Error: Formato de número inválido");
+                        }
+                    }
+                }
+            } while (!mensaje.equalsIgnoreCase("salir"));
+
+            System.out.println("Cliente desconectado. Cerrando servidor...");
+
+        } catch (IOException e) {
+            System.out.println("Error en el servidor: " + e.getLocalizedMessage());
         }
     }
-    
 }
