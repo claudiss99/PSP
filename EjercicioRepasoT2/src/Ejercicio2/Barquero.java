@@ -22,11 +22,13 @@ public class Barquero extends Thread{
     @Override
     public void run(){
         try {
-            barca.esperoLleno();
-            //Me han avisado --> Inicia viaje 
-            System.out.println("Se inicia el viaje");
-            Thread.sleep(new Random().nextInt(5, 11));
-            barca.finViaje();
+            while(true){
+                barca.esperoLleno();
+                System.out.println("Se inicia el viaje");
+                Thread.sleep(new Random().nextInt(5000, 11000));             
+                System.out.println("Se termina el viaje");
+                barca.finViaje();
+            }
         } catch (InterruptedException ex) {
             Logger.getLogger(Barquero.class.getName()).log(Level.SEVERE, null, ex);
         }

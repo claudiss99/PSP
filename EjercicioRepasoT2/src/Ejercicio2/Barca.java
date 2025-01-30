@@ -29,21 +29,19 @@ public class Barca {
         while(this.getPlazasLibres()==0){
             puedoSubir.await();
         }
-        //Subo, sino hay hueco, espero por defecto
+        //Subo
         semaforo.acquire();
         System.out.println("Pasajero "+idPasajero+" ha subido a la barca");
         //soy el ultimo?
         if(this.getPlazasLibres()==0){
-            System.out.println("Soy el ultimo");
             //Aviso al barquero que ya nos podemos ir
-            iniciarViaje.signalAll();
-
+            iniciarViaje.signal();
         }
         //me espero en la barca
         puedoBajar.await();
         semaforo.release();
         System.out.println("Pasajero "+idPasajero+" ha bajado de la Barca");
-
+        Thread.sleep(100);
         //Si soy el ultimo en bajar, aviso al resto
         if(this.getPlazasLibres()==5){
             System.out.println("*************************************");
@@ -55,30 +53,26 @@ public class Barca {
     public void esperoLleno() throws InterruptedException{
         lock.lock();
         //Si  no esta lleno --> espero
-       
         try {
             while (this.getPlazasLibres()>0){
-                System.out.println("Soy el barquero estoy esperando. Plazas disponibles: "+this.getPlazasLibres());
                 iniciarViaje.await(); 
             }
             
         } catch (InterruptedException ex) {
             Logger.getLogger(Barca.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
+            
             lock.unlock(); 
         }
+        
           
     }
     
-    public void finViaje(){
+    public void finViaje() throws InterruptedException{
         lock.lock();
-        try {
-            System.out.println("Se termina el viaje");
-            puedoBajar.signalAll();
-            puedoSubir.signalAll();
-        } finally {
-            lock.unlock();
-        }
+        puedoBajar.signalAll();
+        iniciarViaje.await();
+        lock.unlock();
     }
     public int getPlazasLibres(){
         return semaforo.availablePermits();

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Ejercicio2;
+package Ejercicio3;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,23 +11,25 @@ import java.util.logging.Logger;
  *
  * @author Usuario
  */
-public class Pasajero extends Thread{
+public class Jugador extends Thread{
     private int id;
-    private Barca barca;
-    private Barquero barquero;
+    private Juego juego;
 
-    public Pasajero(int id, Barca barca, Barquero barquero) {
+    public Jugador(int id, Juego juego) {
         this.id = id;
-        this.barca = barca;
-        this.barquero = barquero;
+        this.juego = juego;
     }
     
     @Override
     public void run(){
         try {
-            barca.subePasajero(id);
+            boolean conseguido = true;
+            while (conseguido){
+                conseguido = juego.participal(id);
+            }
+            
         } catch (InterruptedException ex) {
-            Logger.getLogger(Pasajero.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
