@@ -33,19 +33,19 @@ public class Ejercicio3Cliente {
             
             String recibido;
             
-            recibido = reader.readLine();
-            System.out.println(recibido);
-            
             String terminar;
             
             do{
                 terminar = teclado.readLine();
                 writer.println(terminar);
                 recibido=reader.readLine();
-                System.out.println(recibido);
+                if(!recibido.equalsIgnoreCase("salir")){
+                    System.out.println(recibido);
+                }
                 
-            }while(!terminar.equalsIgnoreCase(terminar));
-            
+                
+            }while(!recibido.equalsIgnoreCase("salir"));
+            System.out.println("Saliendo...");
         }catch(IOException e){
             System.out.println("Error en el cliente: "+e.getLocalizedMessage());
         }

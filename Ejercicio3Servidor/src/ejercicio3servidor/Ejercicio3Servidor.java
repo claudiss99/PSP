@@ -74,7 +74,7 @@ public class Ejercicio3Servidor {
                     }
                 }
             } while (!mensaje.equalsIgnoreCase("salir"));
-
+            escribir.println("salir");
             System.out.println("Cliente desconectado. Cerrando servidor...");
 
         } catch (IOException e) {
