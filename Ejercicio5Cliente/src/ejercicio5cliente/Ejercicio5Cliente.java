@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package ejercicio4cliente;
+package ejercicio5cliente;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,12 +14,13 @@ import java.net.Socket;
  *
  * @author ClaudissPerez
  */
-public class Ejercicio4Cliente {
+public class Ejercicio5Cliente {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // TODO code application logic here
         String host = "localhost";
         int puerto = 4000;
         
@@ -34,7 +35,12 @@ public class Ejercicio4Cliente {
             
             while ((recibido = reader.readLine()) != null){
                 System.out.println(recibido);
-
+                
+/*                if(!recibido.contains("_")){
+                    
+                    break;
+                }*/
+                
                 System.out.println("Introduce letra o palabra: ");
                 String intento = teclado.readLine();
                 
