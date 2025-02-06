@@ -40,13 +40,14 @@ public class Ejercicio6Cliente {
                 while (juegoActivo) {
                     System.out.println("Introduce una letra o una palabra:");
                     String intento = teclado.readLine();
-
+                    
+                    //Escrube letra o palabra
                     writer.println(intento);
-
+                    
                     recibido = reader.readLine();
                     System.out.println(recibido);
 
-                    recibido = reader.readLine();  // Recibir palabra codificada
+                    recibido = reader.readLine();
                     System.out.println("Palabra codificada: " + recibido);
 
                     if (recibido.startsWith("COMPLETADO") || recibido.startsWith("DERROTA")) {

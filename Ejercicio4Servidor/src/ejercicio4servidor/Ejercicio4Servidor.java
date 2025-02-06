@@ -37,22 +37,25 @@ public class Ejercicio4Servidor {
                 char[] huecos= new char[palabra.length()];
                 Arrays.fill(huecos, '_');
                 int vidas = 5;
-                System.out.println("ADIOS");
                 System.out.println("Jugando con la palabra: "+palabra);
                 //Escribimos los huecos al cliente
                 escribir.println(String.join(" ", new String(huecos).split("")));
+                escribir.println("Vidas: "+vidas);
                 
                 String intento;
                 
                 while(vidas >0 && new String(huecos).contains("_")){
                     intento = reader.readLine();
-                    System.out.println("HOla");
                     if(intento.length() ==1){
                         //Intenta 1 letra
                         boolean acierto = false;
+                        //Cojo la letra sin espacios y en minus
                         char letra = Character.toLowerCase(intento.charAt(0));
+                        //Recorro palabra
                         for(int i=0; i<palabra.length(); i++){
+                            //Si coincide
                             if(Character.toLowerCase(palabra.charAt(i)) == letra){
+                                //Relleno hueco con la letra
                                 huecos[i] = intento.charAt(0);
                                 acierto = true;
                             }

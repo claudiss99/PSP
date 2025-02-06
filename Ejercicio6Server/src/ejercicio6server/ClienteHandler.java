@@ -21,7 +21,7 @@ import java.util.Set;
 public class ClienteHandler implements Runnable {
     private Socket socket;
     private String[] palabras;
-    private static final int MAX_FALLOS = 5;
+    private static final int MAX_FALLOS = 6;
 
     public ClienteHandler(Socket socket, String[] palabras) {
         this.socket = socket;
@@ -33,26 +33,29 @@ public class ClienteHandler implements Runnable {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            Random rand = new Random();
+            Random random = new Random();
 
-            String palabra = palabras[rand.nextInt(palabras.length)];
+            String palabra = palabras[random.nextInt(palabras.length)];
             char[] huecos = new char[palabra.length()];
             Arrays.fill(huecos, '_');
             int vidas = MAX_FALLOS;
 
-            // Espera a que el cliente envíe "COMENZAR"
+            // El cliente envia COMENZAR
             String mensaje = reader.readLine();
             if ("COMENZAR".equals(mensaje)) {
-                // El servidor elige una palabra y envía "PALABRA_ELEGIDA" y la palabra codificada
+                // El servidor envía "PALABRA_ELEGIDA" y la palabra codificada
+                System.out.println("Jugando con: "+palabra);
                 writer.println("PALABRA_ELEGIDA");
                 writer.println(String.join(" ", new String(huecos).split("")));
 
+                //Guardar letras usadas para no contar dos veces
                 Set<Character> letrasUsadas = new HashSet<>();
                 while (vidas > 0 && new String(huecos).contains("_")) {
-                    mensaje = reader.readLine(); // Recibe la letra o la palabra
+                    //Recibe letra o palabra del cliente
+                    mensaje = reader.readLine(); 
 
                     if (mensaje.length() == 1) {
-                        // Intento de una letra
+                        // Intento una letra
                         char letra = Character.toLowerCase(mensaje.charAt(0));
                         if (letrasUsadas.contains(letra)) {
                             writer.println("Ya has intentado esa letra.");
@@ -60,20 +63,12 @@ public class ClienteHandler implements Runnable {
                         }
                         letrasUsadas.add(letra);
 
-                        boolean acierto = false;
                         for (int i = 0; i < palabra.length(); i++) {
                             if (Character.toLowerCase(palabra.charAt(i)) == letra) {
                                 huecos[i] = mensaje.charAt(0);
-                                acierto = true;
                             }
                         }
 
-                        if (!acierto) {
-                            vidas--;
-                            writer.println("FALLO " + vidas);
-                        } else {
-                            writer.println("ACIERTO " + vidas);
-                        }
                     } else {
                         // Intento de una palabra
                         if (mensaje.equalsIgnoreCase(palabra)) {
@@ -81,22 +76,40 @@ public class ClienteHandler implements Runnable {
                             writer.println("COMPLETADO " + vidas);
                         } else {
                             vidas -= 2;
-                            writer.println("FALLO " + vidas);
                         }
+                    }
+                    
+                    //Se le comunica los fallos(muñequito)
+                    if (vidas==6){
+                        writer.println("------|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======");
+                    }else if(vidas==5){
+                        writer.println("");
+                    }else if(vidas==4){
+                        writer.println("");
+                    }else if(vidas==3){
+                        writer.println("");
+                    }else if(vidas==2){
+                        writer.println("");
+                    }else if(vidas==1){
+                        writer.println("");
                     }
 
                     // Enviar la palabra codificada al cliente
                     writer.println(String.join(" ", new String(huecos).split("")));
-
-                    if (new String(huecos).equalsIgnoreCase(palabra)) {
-                        writer.println("COMPLETADO " + vidas);
-                    }
-
-                    // Si el jugador se queda sin vidas
-                    if (vidas == 0) {
-                        writer.println("DERROTA " + vidas);
-                        writer.println("La palabra era: " + palabra);
-                    }
+                }
+                
+                if(vidas==0){
+                    writer.println("DERROTA " + vidas);
+                    writer.println("La palabra era: " + palabra);
+                }
+                
+                if (new String(huecos).equalsIgnoreCase(palabra)) {
+                    writer.println("COMPLETADO " + vidas);
                 }
 
                 // Preguntar si quiere jugar de nuevo

@@ -33,16 +33,20 @@ public class Ejercicio4Cliente {
             String recibido;
             
             while ((recibido = reader.readLine()) != null){
+                //Escribe huecos
                 System.out.println(recibido);
+                System.out.println(reader.readLine());
 
                 System.out.println("Introduce letra o palabra: ");
                 String intento = teclado.readLine();
                 
+                //Si introduce algo no valido
                 while(intento.contains(" ")){
                     System.out.println("Introduce letra o palabra");
                     intento = teclado.readLine();
                 }
                 
+                //Escribo palabra o letra
                 writer.println(intento);
             }
             
