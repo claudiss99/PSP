@@ -31,7 +31,7 @@ public class Ejercicio5Server {
                 System.out.println("Nuevo cliente conectado.");
                 
                 // Crear un hilo para manejar la conexión del cliente
-                Thread clienteHandler = new Thread(new ClienteHandler(socket));
+                Thread clienteHandler = new Thread(new Juego(socket));
                 clienteHandler.start();
             }
 

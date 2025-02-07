@@ -23,8 +23,10 @@ public class Ejercicio6Cliente {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
+            String respuesta;
             String recibido;
-            while (true) {
+            boolean again = true;
+            while (again) {
                 // Enviar "COMENZAR" para iniciar una nueva partida
                 writer.println("COMENZAR");
 
@@ -32,7 +34,7 @@ public class Ejercicio6Cliente {
                 recibido = reader.readLine();
                 System.out.println(recibido); 
                 recibido = reader.readLine();
-                System.out.println("Palabra codificada: " + recibido);
+                System.out.println(recibido);
 
                 int fallos = 0;
                 boolean juegoActivo = true;
@@ -44,21 +46,87 @@ public class Ejercicio6Cliente {
                     //Escrube letra o palabra
                     writer.println(intento);
                     
+                    // Recibe acierto, fallo, completado o derrota
+                    recibido = reader.readLine();
+                    //Hay que quedarse con la segunda parte del mensaje: fallos
+                    String[] partes = recibido.split(" ");
+                    fallos = Integer.parseInt(partes[1]);
+                    //Si completado o derrota --> juegoActivo a false
+                    if(recibido.startsWith("COMPLETADO") || recibido.startsWith("DERROTA")){
+                        juegoActivo= false;
+                    }
+                    
+                    if (fallos == 0){
+                        System.out.println("------|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======\n" +
+                        "");
+                    }else if(fallos == 1){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======\n" +
+                        "");
+                    }else if(fallos == 2){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|     |\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======\n" +
+                        "");
+                    }else if(fallos == 3){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|    /|\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======");
+                    }else if(fallos == 4){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|    /|\\\n" +
+                        "|\n" +
+                        "|\n" +
+                        "=======");
+                    }else if(fallos == 5){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|    /|\\\n" +
+                        "|    /\n" +
+                        "|\n" +
+                        "=======");
+                    }else if(fallos == 6){
+                        System.out.println("------|\n" +
+                        "|     O\n" +
+                        "|    /|\\\n" +
+                        "|    / \\\n" +
+                        "|\n" +
+                        "=======");
+                    }
+                    
+                    
+                    
+                    //Recibido mensaje: palabra codificada(aciero o fallo), mensaje enhorabuena o la palabra era esta
                     recibido = reader.readLine();
                     System.out.println(recibido);
+                    
+                    
 
-                    recibido = reader.readLine();
-                    System.out.println("Palabra codificada: " + recibido);
-
-                    if (recibido.startsWith("COMPLETADO") || recibido.startsWith("DERROTA")) {
-                        System.out.println("¿Quieres jugar de nuevo? (si/no)");
-                        String respuesta = teclado.readLine();
-                        writer.println(respuesta);
-                        if ("no".equalsIgnoreCase(respuesta)) {
-                            writer.println("SALIR");
-                            juegoActivo = false;
-                        }
-                    }
+                    //Si comienza por acierto o fallo envio letra otra vez (No hago nada)
+                }
+                //Si juego activo a false --> ¿Quiero jugar otra vez?
+                System.out.println("¿Quieres jugar otra vez? Escribe: si/no");
+                respuesta = teclado.readLine();
+                if(respuesta.equalsIgnoreCase("no")){
+                    again=false;
+                    writer.println("SALIR");
+                    //Si es que si no se hace nada si volvemos a "COMENZAR"
                 }
             }
         } catch (IOException e) {

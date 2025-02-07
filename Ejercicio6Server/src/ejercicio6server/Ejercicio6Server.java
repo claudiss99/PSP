@@ -29,8 +29,8 @@ public class Ejercicio6Server {
                 Socket socket = serverSocket.accept();
                 System.out.println("Nuevo cliente conectado.");
 
-                // Crear un hilo para manejar el juego de cada cliente
-                Thread clienteHandler = new Thread(new ClienteHandler(socket, palabras));
+                
+                Juego clienteHandler = new Juego(socket, palabras);
                 clienteHandler.start();
             }
         } catch (IOException e) {
