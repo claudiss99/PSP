@@ -17,7 +17,7 @@ import javax.net.ssl.SSLSocket;
  *
  * @author ClaudissPerez
  */
-public class Ejercicio10ClienteRestaurante {
+public class Ejercicio10ClienteRestaurante{
 
     /**
      * @param args the command line arguments
@@ -31,6 +31,7 @@ public class Ejercicio10ClienteRestaurante {
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             
             String mensajeServidor;
+            
             
             
             
