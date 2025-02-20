@@ -27,15 +27,12 @@ public class Ejercicio10Server {
         
         try (ServerSocket serverSocket = new ServerSocket(puerto)){
             ManejoPedidos manejo = new ManejoPedidos();
-            boolean restaurante=false;
             BufferedReader reader;
-            PrintWriter writer;
             String mensaje;
             //Quieor aceptar todo el rato clientes
             while(true){
                 Socket socket = serverSocket.accept();
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                writer = new PrintWriter(socket.getOutputStream(), true);
                 //Recibo mensaje identificativo(COMENSAL O RESTAURANTE)
                 mensaje = reader.readLine();
                //compruebo el mensaje
