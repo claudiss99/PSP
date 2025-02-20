@@ -40,10 +40,10 @@ public class Ejercicio10Server {
                 mensaje = reader.readLine();
                //compruebo el mensaje
                 if(mensaje.equalsIgnoreCase("RESTAURANTE")){
-                    manejo.setRestaurante(new Restaurante(socket, gestion));
+                    manejo.setRestaurante(new Restaurante(socket, manejo));
                     
                 }else if(mensaje.equalsIgnoreCase("COMENSAL")){
-                    manejo.addComensal(new Comensal(socket, gestion));
+                    manejo.addComensal(new Comensal(socket, manejo));
                 }
               
                 
