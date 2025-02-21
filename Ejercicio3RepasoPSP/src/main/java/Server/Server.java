@@ -4,6 +4,7 @@
 
 package Server;
 
+import com.sun.net.httpserver.Authenticator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,11 +32,19 @@ public class Server {
                 //Recibo mensaje identificativo(SENSOR O SUSCRIPTOR)
                 mensaje = reader.readLine();
                //compruebo el mensaje
-                if(mensaje.equalsIgnoreCase("RESTAURANTE")){
-                    gestion.setTemperatura(new Restaurante(socket, manejo));
+                if(mensaje.equalsIgnoreCase("SENSOR")){
+                    gestion.setSensor(new Sensor(socket, gestion));
                     
-                }else if(mensaje.equalsIgnoreCase("COMENSAL")){
-                    manejo.addComensal(new Comensal(socket, manejo));
+                }else if(mensaje.startsWith("SUSCRIPTOR#")){
+                    if(mensaje.split("#")[1].equalsIgnoreCase("TEMPERATURA")){
+                        gestion.addSuscriptorTemp(new Suscriptor(socket,gestion));
+                    }else if(mensaje.split("#")[1].equalsIgnoreCase("HUMEDAD")){
+                        System.out.println("Soy el server llamando al añadir suscriproe");
+                        gestion.addSuscriptorHum(new Suscriptor(socket, gestion));
+                    }else{
+                        gestion.addSuscriptorTemp(new Suscriptor(socket, gestion));
+                        gestion.addSuscriptorHum(new Suscriptor(socket, gestion));
+                    }
                 }
               
                 

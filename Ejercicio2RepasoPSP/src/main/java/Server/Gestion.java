@@ -39,32 +39,41 @@ public class Gestion extends Thread{
             mensaje = reader.readLine();
             //Quiero jugar hasta que Cliente no conteste
             while(mensaje != null){
-               String num = null;
+               ArrayList<Integer> numeros = new ArrayList<>();
                //comprobamos si tenemos DADO O DADS
-               if(mensaje.startsWith("DADO")){
+               if(mensaje.startsWith("DADO#")){
+                   System.out.println("Tengo un dado");
                    //SACAMOS NUM CARAS --> 2ºPARTE #
                    String caras = mensaje.split("#")[1];
                    
                    //Llamamos a lanzar
-                   num= String.valueOf(lanzar(caras));
+                   numeros.add(lanzar(caras));
                    
-               }else if(mensaje.startsWith("DADOS")){
+               }else if(mensaje.startsWith("DADOS#")){
+                   System.out.println("Tengo mas de un dado");
                    //Sacamos num dados
                    String dados = mensaje.split("#")[1];
                    //Sacamos num caras
                    String [] caras = mensaje.split("#")[2].split(" ");
+                   
                    //LLamamos a la funcion tantos dados tengamos
-                   for(int i=0; i<Integer.parseInt(dados); i++){
+                   for(int i=0; i<caras.length; i++){
+                       System.out.println("Caras: "+caras[i]);
                        //la funcion le metemos cara
-                       num =String.valueOf(lanzar(caras[i])).concat(" ");
+                       numeros.add(lanzar(caras[i]));
                    }   
                }
                 //Devolvemos resultado
-                writer.println("RESULTADO#"+num);
+                writer.println("RESULTADO#"+numeros);
                 //Leo al terminar para ver si salgo
                 mensaje = reader.readLine();
             }
         }catch(IOException e){
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                System.err.println("Errpr en la gestion");
+            }
             System.err.println("Error en la gestion: "+e.getLocalizedMessage());
         }
     }

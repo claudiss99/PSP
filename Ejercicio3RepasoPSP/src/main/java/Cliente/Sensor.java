@@ -27,7 +27,7 @@ public class Sensor {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             
-           
+           writer.println("SENSOR");
             while (true) {
                 //Envio el mensaje temperatura
                 writer.println("TEMPERATURA#"+new Random().nextInt(20, 30));

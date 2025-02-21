@@ -82,6 +82,7 @@ public class Gestion extends Thread{
                         resultado = min(numeros);
                         break;
                     case "TODO":
+                        new Thread(()->{writer.println("#"+suma(numeros));}).start();
                         writer.println(operacion+"#"+suma(numeros));
                         writer.println(operacion+"#"+media(numeros));
                         writer.println(operacion+"#"+contar(numeros));
