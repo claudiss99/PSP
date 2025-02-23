@@ -26,31 +26,23 @@ public class Ejercicio10Server {
         int puerto = 4000;
         
         try (ServerSocket serverSocket = new ServerSocket(puerto)){
-            boolean restaurante=false;
+            ManejoPedidos manejo = new ManejoPedidos();
             BufferedReader reader;
-            PrintWriter writer;
             String mensaje;
-            Socket sitio = null;
             //Quieor aceptar todo el rato clientes
             while(true){
                 Socket socket = serverSocket.accept();
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                writer = new PrintWriter(socket.getOutputStream(), true);
                 //Recibo mensaje identificativo(COMENSAL O RESTAURANTE)
                 mensaje = reader.readLine();
-                //Mientras no se conecte el restaurante --> No se lanza al cliente
-                while(!restaurante){
-                    //compruebo el mensaje
-                    if(mensaje.equalsIgnoreCase("RESTAURANTE")){
-                        restaurante=true;
-                        sitio=socket;
-                    }
+               //compruebo el mensaje
+                if(mensaje.equalsIgnoreCase("RESTAURANTE")){
+                    manejo.setRestaurante(new Restaurante(socket, manejo));
+                    
+                }else if(mensaje.equalsIgnoreCase("COMENSAL")){
+                    manejo.addComensal(new Comensal(socket, manejo));
                 }
-                
-                //ya tengo restaurante --> ahora solo acepto clientes
-                if(mensaje.equalsIgnoreCase("COMENSAL")){
-                    ManejoPedidos manejo = new ManejoPedidos(socket, sitio);
-                }
+              
                 
             }
         }catch(IOException e){
