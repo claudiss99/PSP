@@ -35,7 +35,7 @@ public class Ejercicio10ClienteComensal {
             
             
         } catch (IOException ex) {
-            Logger.getLogger(Ejercicio10ClienteRestaurante.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error en el comensal: "+ex.getLocalizedMessage());
         }
     }
     
