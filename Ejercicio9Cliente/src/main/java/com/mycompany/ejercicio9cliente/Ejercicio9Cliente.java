@@ -1,37 +1,42 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-
-package com.mycompany.ejercicio9cliente;
+package ejercicio10clientecomensal;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Claudia
+ * @author ClaudissPerez
  */
-public class Ejercicio9Cliente {
+public class Ejercicio10ClienteComensal {
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
+        // TODO code application logic here
+        // TODO code application logic here
         String host = "localhost";
         int puerto = 4000;
-        
         try(Socket socket = new Socket(host, puerto)){
-            System.out.println("Conectado al servidor");
-            
-            BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             
+            String mensajeServidor;
             
             
-        }catch(IOException e){
-            System.err.println("Error al conectar cliente "+e.getLocalizedMessage());
+            
+        } catch (IOException ex) {
+            System.err.println("Error en el comensal: "+ex.getLocalizedMessage());
         }
     }
+    
 }
