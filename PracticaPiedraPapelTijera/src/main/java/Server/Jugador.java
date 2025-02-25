@@ -17,14 +17,16 @@ import java.util.logging.Logger;
  * @author Usuario
  */
 public class Jugador{
-    public Socket socket;
-    public Gestion gestion;
+    private Socket socket;
+    private String nombre;
+    private Gestion gestion;
     private PrintWriter writer;
     private BufferedReader reader;
 
-    public Jugador(Socket socket, Gestion gestion) {
+    public Jugador(Socket socket, String nomnbre, Gestion gestion) {
         try {
             this.socket = socket;
+            this.nombre = nomnbre;
             writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException ex) {
@@ -38,16 +40,16 @@ public class Jugador{
     }
     
     public String getNombre(){
-        String nombre = null;
+        return nombre;
+    }
+    
+    public String recibirRespuesta(){
         try {
-            
-            //LEO 1º MENSAJE
-            nombre= reader.readLine();
-            
+            return reader.readLine();
         } catch (IOException ex) {
             Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return nombre;
+        return null;
     }
     
     public void enviarMensaje(String mensaje){
@@ -55,4 +57,19 @@ public class Jugador{
         writer.println(mensaje);
     }
     
+    public String recibirEleccion() throws IOException{
+        String linea = reader.readLine();
+        String[] partes = linea.split("#");
+    return partes[1];
+        
+    }
+    
+    public void cerrarConexion(){
+        try{
+            socket.close();
+            gestion.eliminarJugador(nombre);
+        }catch(IOException e){
+            System.err.println("Error cerrando la conexion de "+nombre);
+        }
+    }
 }

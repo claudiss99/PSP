@@ -12,31 +12,52 @@ import java.util.ArrayList;
  * @author Usuario
  */
 public class Gestion {
-    private Socket socket;
-    private Jugador jugador;
-    private SalaJuego sala;
-    private ArrayList<String> nombres;
+    private static ArrayList<String> nombreJugadores;
+    private ArrayList<SalaJuego> salas = new ArrayList<>();
+    private ArrayList<Jugador> jugadoresEnEspera = new ArrayList<>();
     
     public Gestion(){
-        nombres = new ArrayList<>();
+        nombreJugadores = new ArrayList<>();
+        salas = new ArrayList<>();
+        jugadoresEnEspera = new ArrayList<>();
+    }
+    
+    public ArrayList<String> getNombreJugadores(){
+        return nombreJugadores;
     }
     
     public void newJugador(Jugador jugador){
-        //Mientras que no me introduz el nombre correcto --> No tengo un jugador
-        boolean listo = false;
-        while(!listo){
-            //Consigo su nombre
-            String nombre = jugador.getNombre();
-            //Compruebo el nombre
-            if(nombres.contains(nombre)){
-                jugador.enviarMensaje("FALLO#USUARIO_DUPLICADO");
-            }else{
-                //Añadimos usuario
-                nombres.add(nombre);
-                //enviamos conectado
-                jugador.enviarMensaje("CONECTADO");
-                listo = true;
+        nombreJugadores.add(jugador.getNombre());
+        jugadoresEnEspera.add(jugador);
+        
+        if(jugador.recibirRespuesta().equalsIgnoreCase("COMENZAR")){
+            //Comprobamos si tenemos al menos 2 en cola
+            enviarASala();
+        }else{
+            eliminarJugador(jugador.getNombre());
+            jugadoresEnEspera.remove(jugador.getNombre());
+        }
+        
+    }
+    
+    public void enviarASala(){
+        if(jugadoresEnEspera.size() >= 2){
+            Jugador j1 = jugadoresEnEspera.remove(0);
+            Jugador j2 = jugadoresEnEspera.remove(0);
+            
+            SalaJuego sala = new SalaJuego(j1, j2);
+            salas.add(sala);
+            //como ya tenemos los jugadores y su sala --> comemnzamos
+            sala.start(); 
+        }else{
+            //Tenemos que responder  “ESPERANDO_JUGADORES”.
+            for (Jugador jugador : jugadoresEnEspera) {
+                jugador.enviarMensaje("ESPERANDO_JUGADORES");
             }
         }
+    }
+    
+    public static void eliminarJugador(String nombre){
+        nombreJugadores.remove(nombre);
     }
 }
